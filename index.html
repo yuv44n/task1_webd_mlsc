@@ -15,60 +15,91 @@
     <video autoplay muted loop id="myVideo">
       <source src="1448735-uhd_2732_1440_24fps.mp4" type="video/mp4">
     </video>
-    <div class="container">
-        
+    <div class="bigger-container">
+      <div class="container">
         <h1>Nature's Wonders: Test Your Knowledge</h1>
-        <button><a href="#start">Start Quiz</a></button>
-    </div>
+        <button>
+          <a href="#start" style="color:#ffffff; text-decoration:none; font-weight:normal;">Start Quiz</a>
+        </button>
+      </div>
+      <div class="container" id="start">
+        <h2>1. Which is the largest rainforest in the world?</h2>
+        <div class="button-container">
+          <button onclick="selectAnswer(this, false, 0)">Congo Rainforest</button>
+          <button onclick="selectAnswer(this, true, 0)">Amazon Rainforest</button>
+          <button onclick="selectAnswer(this, false, 0)">Daintree Rainforest</button>
+          <button onclick="selectAnswer(this, false, 0)">Sundarbans</button>
+        </div>
+      </div>
+      <div class="container">
+        <h2>2. What is the process by which plants make their food called?</h2>
+        <div class="button-container">
+          <button onclick="selectAnswer(this, false, 1)">Respiration</button>
+          <button onclick="selectAnswer(this, true, 1)">Photosynthesis</button>
+          <button onclick="selectAnswer(this, false, 1)">Transpiration</button>
+          <button onclick="selectAnswer(this, false, 1)">Digestion</button>
+        </div>
+      </div>
+      <div class="container">
+        <h2>3. Which animal is known as the "King of the Jungle"?</h2>
+        <div class="button-container">
+          <button onclick="selectAnswer(this, false, 2)">Tiger</button>
+          <button onclick="selectAnswer(this, true, 2)">Lion</button>
+          <button onclick="selectAnswer(this, false, 2)">Elephant</button>
+          <button onclick="selectAnswer(this, false, 2)">Bear</button>
+        </div>
+      </div>
+      <div class="container">
+        <h2>4. Which of the following is the fastest bird?</h2>
+        <div class="button-container">
+          <button onclick="selectAnswer(this, false, 3)">Golden Eagle</button>
+          <button onclick="selectAnswer(this, true, 3)">Peregrine Falcon</button>
+          <button onclick="selectAnswer(this, false, 3)">Albatross</button>
+          <button onclick="selectAnswer(this, false, 3)">Bald Eagle</button>
+        </div>
+      </div>
+      <div class="container">
+        <h2>5. What is the primary source of energy for life on Earth?</h2>
+        <div class="button-container">
+          <button onclick="selectAnswer(this, false, 4)">Wind</button>
+          <button onclick="selectAnswer(this, true, 4)">Sun</button>
+          <button onclick="selectAnswer(this, false, 4)">Water</button>
+          <button onclick="selectAnswer(this, false, 4)">Fossil Fuels</button>
+        </div>
+      </div>
+      <button class="submit-btn" onclick="submitQuiz()">Submit</button>
+      <script>
+        let selectedAnswers = [null, null, null, null, null];
 
-    <div class="container" id="start">
-      <h2>1. Which is the largest rainforest in the world?</h2>
-      <div class="button-container">
-        <button onclick="alert('Wrong Answer! Try Again.')">Congo Rainforest</button>
-        <button onclick="alert('Correct Answer!')">Amazon Rainforest</button>
-        <button onclick="alert('Wrong Answer! Try Again.')">Daintree Rainforest</button>
-        <button onclick="alert('Wrong Answer! Try Again.')">Sundarbans</button>
-      </div>
-    </div>
+        function selectAnswer(button, isCorrect, questionIndex) {
+          const buttons = button.parentElement.querySelectorAll('button');
+          buttons.forEach(btn => btn.classList.remove('selected'));
+          button.classList.add('selected');
+          selectedAnswers[questionIndex] = isCorrect;
+        }
 
-    <div class="container">
-      <h2>2. What is the process by which plants make their food called?</h2>
-      <div class="button-container">
-        <button onclick="alert('Wrong Answer! Try Again.')">Respiration</button>
-        <button onclick="alert('Correct Answer!')">Photosynthesis</button>
-        <button onclick="alert('Wrong Answer! Try Again.')">Transpiration</button>
-        <button onclick="alert('Wrong Answer! Try Again.')">Digestion</button>
-      </div>
-    </div>
-  
-    <div class="container">
-      <h2>3. Which animal is known as the "King of the Jungle"?</h2>
-      <div class="button-container">
-        <button onclick="alert('Wrong Answer! Try Again.')">Tiger</button>
-        <button onclick="alert('Correct Answer!')">Lion</button>
-        <button onclick="alert('Wrong Answer! Try Again.')">Elephant</button>
-        <button onclick="alert('Wrong Answer! Try Again.')">Bear</button>
-      </div>
-    </div>
-  
-    <div class="container">
-      <h2>4. Which of the following is the fastest bird?</h2>
-      <div class="button-container">
-        <button onclick="alert('Wrong Answer! Try Again.')">Golden Eagle</button>
-        <button onclick="alert('Correct Answer!')">Peregrine Falcon</button>
-        <button onclick="alert('Wrong Answer! Try Again.')">Albatross</button>
-        <button onclick="alert('Wrong Answer! Try Again.')">Bald Eagle</button>
-      </div>
-    </div>
-  
-    <div class="container">
-      <h2>5. What is the primary source of energy for life on Earth?</h2>
-      <div class="button-container">
-        <button onclick="alert('Wrong Answer! Try Again.')">Wind</button>
-        <button onclick="alert('Correct Answer!')">Sun</button>
-        <button onclick="alert('Wrong Answer! Try Again.')">Water</button>
-        <button onclick="alert('Wrong Answer! Try Again.')">Fossil Fuels</button>
-      </div>
-    </div>
+        function submitQuiz() {
+          let score = 0;
+          if (selectedAnswers.includes(null)) {
+            alert('Please answer all the questions!');
+            return;
+          }
+          document.querySelectorAll('.container').forEach((container, index) => {
+            const buttons = container.querySelectorAll('button');
+            buttons.forEach(button => {
+              button.classList.remove('correct', 'wrong');
+              const onclickAttr = button.getAttribute('onclick');
+              if (onclickAttr && onclickAttr.includes('true')) {
+                button.classList.add('correct');
+              }
+              if (button.classList.contains('selected') && (!onclickAttr || !onclickAttr.includes('true'))) {
+                button.classList.add('wrong');
+              }
+            });
+            if (selectedAnswers[index]) score++;
+          });
+          alert(`Your score is: ${score} out of ${selectedAnswers.length}`);
+        }
+      </script>
   </body>
 </html>
