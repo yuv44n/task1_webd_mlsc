@@ -1,3 +1,8 @@
+<!-- Hello! if you're reading this i wanted to lyk where i took some code and content from:
+https://hype4.academy/tools/glassmorphism-generator
+https://www.pexels.com/video/video-of-forest-1448735/
+A lot of this js is improvised from stack overflow(especially the smooth scroll to next container stuff), i'm a bit rusty :) its been a while -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,7 +24,7 @@
       <div class="container">
         <h1>Nature's Wonders: Test Your Knowledge</h1>
         <button>
-          <a href="#start" style="color:#ffffff; text-decoration:none; font-weight:normal;">Start Quiz</a>
+          <a href="#start">Start Quiz</a>
         </button>
       </div>
       <div class="container" id="start">
@@ -67,8 +72,9 @@
           <button onclick="selectAnswer(this, false, 4)">Fossil Fuels</button>
         </div>
       </div>
-      <div style="height: 10vh;" class="container">
+      <div style="height: 10vh; margin-bottom: 20vh;" class="container">
         <button class="submit-btn" onclick="submitQuiz()">Submit</button>
+        <h2 id="scoreMessage"></h2>
       </div>
       <script src="index.js">
       </script>

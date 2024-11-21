@@ -5,6 +5,13 @@ function selectAnswer(button, isCorrect, questionIndex) {
     buttons.forEach(btn => btn.classList.remove('selected'));
     button.classList.add('selected');
     selectedAnswers[questionIndex] = isCorrect;
+    
+    const currentContainer = button.closest('.container');
+    const nextContainer = currentContainer.nextElementSibling;
+
+    if (nextContainer) {
+    nextContainer.scrollIntoView({ behavior: 'smooth' });
+    }
 }
 
 function submitQuiz() {
@@ -27,5 +34,7 @@ function submitQuiz() {
     });
     if (selectedAnswers[index]) score++;
     });
-    alert(`Your score is: ${score} out of ${selectedAnswers.length}`);
+const scoreMessage = document.getElementById('scoreMessage');
+scoreMessage.textContent = `Your score is: ${score} out of ${selectedAnswers.length}`;
+
 }
